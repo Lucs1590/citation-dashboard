@@ -1,8 +1,9 @@
 <div class="ml-3 mr-3 mt-3">
-  <form>
+  <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="form-group">
-      <label for="searchInput">Search a tag</label>
-      <input type="text" class="form-control" id="searchInput" placeholder="computer vision, math, ...">
+      <label for="searchInput">Search a tag:</label>
+      <input formControlName="tag" type="text" class="form-control" id="searchInput"
+        placeholder="computer vision, math, ...">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
