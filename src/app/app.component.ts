@@ -35,11 +35,10 @@ export class AppComponent implements OnInit {
   submit() {
     this.tagResult = search(this.form.value.tag);
 
-    const scholar = require('google-scholar')
-    scholar.search(this.form.value.tag)
-      .then(resultsObj => {
-        this.tagResult2 = resultsObj;
-      });
+    /* let scholar = require('google-scholar');
+    scholar.search(this.form.value.tag).then(resultsObj => {
+      this.tagResult2 = resultsObj;
+    }); */
   }
 
 }
