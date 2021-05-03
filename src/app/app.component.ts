@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { search } from 'scholarly';
 
 
 @Component({
@@ -9,6 +10,9 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
   form: FormGroup;
+  tagResult: any;
+  tagResult2: any;
+  authorgResult: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,8 +33,13 @@ export class AppComponent implements OnInit {
   }
 
   submit() {
-    // aqui você pode implementar a logica para fazer seu formulário salvar
-    console.log(this.form.value);
+    this.tagResult = search(this.form.value.tag);
+
+    const scholar = require('google-scholar')
+    scholar.search(this.form.value.tag)
+      .then(resultsObj => {
+        this.tagResult2 = resultsObj;
+      });
   }
 
 }
