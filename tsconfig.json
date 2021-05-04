@@ -18,6 +18,9 @@
     ]
   },
   "angularCompilerOptions": {
+    "types": [
+      "webpack-env"
+    ],
     "enableI18nLegacyMessageIdFormat": false
   }
 }

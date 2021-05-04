@@ -33,7 +33,8 @@
               "./node_modules/plotly.js/dist/plotly.min.js"
             ],
             "allowedCommonJsDependencies": [
-              "scholarly"
+              "scholarly",
+              "google-scholar"
             ]
           },
           "configurations": {
