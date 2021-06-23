@@ -1,5 +1,5 @@
-# CitationDashboard
-This project is made to create a visualization about the scientific scenario, making it possible to have a visualization of data about tags or authors.
+# TriatlhonDashboard
+This project is made to create a visualization about the tristlhon ranks, making it possible to have a visualization of data about ranks and performance.
 Also, this is the Information Visualization subject, carried out at São Paulo State University (UNESP) by [Prof. Dr. Jose Remo Ferreira Brega](https://bv.fapesp.br/pt/pesquisador/104091/jose-remo-ferreira-brega/).
 
 ## About the Framework
