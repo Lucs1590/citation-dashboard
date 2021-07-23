@@ -1,4 +1,6 @@
-import { Proof } from "../models/proof.model";
+import { vv2009 } from "./vv2009";
 
-export const dataset: Proof = [
-];
+export const dataset = [
+    vv2009,
+
+]
