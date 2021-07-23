@@ -5,12 +5,14 @@
       Triatlhon Dashboard
     </a>
 
-    <div class="w-50">
-      <select class="form-select" aria-label="Proof Select" (change)=changeSelection($event.target.value)>
+    <div class="form-floating w-50">
+      <select id="proofSelect" class="form-select" aria-label="Proof Select"
+        (change)=changeSelection($event.target.value)>
         <option *ngFor="let proof of proofsName" [value]='proof'>
           {{ proof }}
         </option>
       </select>
+      <label for="proofSelect">Select for a proof</label>
     </div>
 
     <div class="justify-content-md-end" style="margin-right: 2.5rem;">
@@ -22,7 +24,7 @@
       <div class="row">
         <button class="btn btn-warning btn-sm" style="background-color: #FF6A00;" type="button" data-toggle="collapse"
           data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          <i class="fa fa-close"></i> More Info
+          More Info
         </button>
 
       </div>
