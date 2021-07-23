@@ -9,15 +9,9 @@
       </select>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">Add Info</button>
   </form>
 </div>
-
-<div class="ml-3 mr-3 mt-2">
-
-</div>
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">Add Info</button>
-
 
 <!-- Modal Form -->
 <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -33,7 +27,81 @@
         </div>
 
         <!-- Body -->
-        <div class="modal-body">
+        <div class="modal-body container">
+
+
+          <label for="name" class="form-label">Name</label>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="name" aria-describedby="basic-addon3">
+          </div>
+
+
+          <label for="age" class="form-label">Age</label>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="age" aria-describedby="basic-addon3">
+          </div>
+
+
+          <label class="form-label">Sex</label>
+          <br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="sexRadio" id="male" checked>
+            <label class="form-check-label" for="male">
+              Male
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="sexRadio" id="female">
+            <label class="form-check-label" for="female">
+              Female
+            </label>
+          </div>
+          <br>
+
+          <label for="country" class="form-label mt-3">Country</label>
+          <select class="form-select mb-3" aria-label="Country" id="country">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <div class="row">
+            <div class="col">
+              <label for="swim" class="form-label">Swim Time</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="swim" aria-describedby="basic-addon3">
+              </div>
+            </div>
+            <div class="col">
+              <label for="bike" class="form-label">Bike Time</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="bike" aria-describedby="basic-addon3">
+              </div>
+            </div>
+            <div class="col">
+              <label for="run" class="form-label">Run Time</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="run" aria-describedby="basic-addon3">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <label for="t1" class="form-label">T1</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="t1" aria-describedby="basic-addon3">
+              </div>
+            </div>
+            <div class="col">
+              <label for="t2" class="form-label">T2</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="t2" aria-describedby="basic-addon3">
+              </div>
+            </div>
+          </div>
+
 
         </div>
 
