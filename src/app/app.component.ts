@@ -25,8 +25,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   createForm(): void {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      age: [''],
-      sex: [''],
+      age: [null],
+      sex: [null],
       country: [''],
       swim: [''],
       t1: [''],
