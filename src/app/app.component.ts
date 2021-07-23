@@ -1,6 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import * as bootstrap from "bootstrap";
+import { dataset } from 'src/dataset/dataset';
+import { Proof } from 'src/models/proof.model';
+import { Record } from 'src/models/record.model';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +19,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.createDataset();
   }
 
   ngAfterViewInit(): void {
@@ -37,6 +41,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       totalTime: [''],
       program: ['']
     })
+  }
+
+  createDataset(): void{ // Proof {
+    dataset.map(record => new Record().deserialize(record));
+    // return dataset;
   }
 
   submit() {
