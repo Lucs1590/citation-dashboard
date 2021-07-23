@@ -43,9 +43,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     })
   }
 
-  createDataset(): void{ // Proof {
-    dataset.map(record => new Record().deserialize(record));
-    // return dataset;
+  createDataset(): Proof {
+    const _dataset = dataset?.map((subset) => {
+      return {
+        name: subset?.name,
+        dataset: subset?.dataset.map(record => new Record().deserialize(record))
+      }
+    });
+    return _dataset;
   }
 
   submit() {
