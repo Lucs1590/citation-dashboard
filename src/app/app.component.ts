@@ -12,14 +12,22 @@ import { Record } from 'src/models/record.model';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   form: FormGroup;
+  _dataset: Proof;
+  currentDataset: { name?: string; dataset?: Record[]; };
 
   constructor(
     private formBuilder: FormBuilder,
   ) { }
 
+
+  public get proofsName(): string[] {
+    return this._dataset.map(subset => subset?.name);
+  }
+
   ngOnInit(): void {
     this.createForm();
-    this.createDataset();
+    this._dataset = this.createDataset();
+    this.currentDataset = this._dataset[0];
   }
 
   ngAfterViewInit(): void {
@@ -48,7 +56,11 @@ export class AppComponent implements OnInit, AfterViewInit {
         dataset: subset?.dataset.map(record => new Record().deserialize(record))
       }
     });
-    return _dataset;
+    return _dataset.sort((a, b) => ('' + b.name).localeCompare(a.name));
+  }
+
+  public changeSelection(value: string): void {
+    this.currentDataset = this._dataset.filter(subset => subset.name == value)[0];
   }
 
   public submit() {
