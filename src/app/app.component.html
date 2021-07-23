@@ -12,7 +12,7 @@
           {{ proof }}
         </option>
       </select>
-      <label for="proofSelect">Select for a proof</label>
+      <label for="proofSelect">Select for a proof.</label>
     </div>
 
     <div class="justify-content-md-end" style="margin-right: 2.5rem;">
@@ -22,15 +22,28 @@
           Info</button>
       </div>
       <div class="row">
-        <button class="btn btn-warning btn-sm" style="background-color: #FF6A00;" type="button" data-toggle="collapse"
-          data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+        <button class="btn btn-warning btn-sm" style="background-color: #FF6A00;" type="button"
+          data-bs-toggle="collapse" data-bs-target="#navbarExternalContent" data-target="#navbarExternalContent"
+          aria-controls="navbarExternalContent" aria-expanded="false" aria-label="Toggle navigation">
           More Info
         </button>
+
+        <!-- <button class="btn btn-warning btn-sm" style="background-color: #FF6A00;" type="button" data-toggle="collapse"
+          data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          More Info
+        </button> -->
 
       </div>
     </div>
   </div>
 </nav>
+
+<div class="collapse" id="navbarExternalContent">
+  <div class="p-4 navbar-light" style="background-color: #FF9F00;">
+    <small>Select more filters.</small>
+  </div>
+</div>
 
 <!-- Modal Form -->
 <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
