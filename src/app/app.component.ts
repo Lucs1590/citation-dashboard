@@ -26,24 +26,22 @@ export class AppComponent implements OnInit, AfterViewInit {
     new bootstrap.Modal(document.getElementById('modalForm')).toggle()
   }
 
-  createForm(): void {
+  private createForm(): void {
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: [null, Validators.required],
       age: [null],
-      sex: [null],
-      country: [''],
-      swim: [''],
-      t1: [''],
-      bike: [''],
-      t2: [''],
-      run: [''],
-      position: [0],
+      sex: [null, Validators.required],
+      country: [null],
+      swim: ['', Validators.required],
+      t1: ['', Validators.required],
+      bike: ['', Validators.required],
+      t2: ['', Validators.required],
+      run: ['', Validators.required],
       totalTime: [''],
-      program: ['']
     })
   }
 
-  createDataset(): Proof {
+  private createDataset(): Proof {
     const _dataset = dataset?.map((subset) => {
       return {
         name: subset?.name,
@@ -53,7 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     return _dataset;
   }
 
-  submit() {
+  public submit() {
     /* let scholar = require('google-scholar');
     scholar.search(this.form.value.tag).then(resultsObj => {
       this.tagResult2 = resultsObj;
