@@ -24,6 +24,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "jquery": "^3.6.0",
+    "node-kmeans": "^1.1.9",
     "plotly.js": "^1.47.4",
     "plotly.js-dist": "^1.58.5",
     "rxjs": "~6.6.0",
