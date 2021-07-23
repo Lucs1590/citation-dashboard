@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "citation-dashboard": {
+    "triathlon-dashboard": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/citation-dashboard",
+            "outputPath": "dist/triathlon-dashboard",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "citation-dashboard:build"
+            "browserTarget": "triathlon-dashboard:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "citation-dashboard:build:production"
+              "browserTarget": "triathlon-dashboard:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "citation-dashboard:build"
+            "browserTarget": "triathlon-dashboard:build"
           }
         },
         "test": {
@@ -124,16 +124,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "citation-dashboard:serve"
+            "devServerTarget": "triathlon-dashboard:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "citation-dashboard:serve:production"
+              "devServerTarget": "triathlon-dashboard:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "citation-dashboard"
+  "defaultProject": "triathlon-dashboard"
 }
