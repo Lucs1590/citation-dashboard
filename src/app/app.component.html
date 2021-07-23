@@ -4,16 +4,29 @@
       <img src="../favicon.ico" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
       Triatlhon Dashboard
     </a>
-    <form class="d-flex">
+
+    <div class="w-50">
       <select class="form-select" aria-label="Proof Select" (change)=changeSelection($event.target.value)>
-        <option *ngFor="let proof of proofsName"
-          [value]='proof'>
+        <option *ngFor="let proof of proofsName" [value]='proof'>
           {{ proof }}
         </option>
       </select>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalForm">Add Info</button>
-    </form>
+    </div>
+
+    <div class="justify-content-md-end" style="margin-right: 2.5rem;">
+      <div class="row mb-2">
+        <button type="button" class="btn btn-warning btn-sm" style="background-color: #FF6A00;" data-bs-toggle="modal"
+          data-bs-target="#modalForm">Add
+          Info</button>
+      </div>
+      <div class="row">
+        <button class="btn btn-warning btn-sm" style="background-color: #FF6A00;" type="button" data-toggle="collapse"
+          data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          <i class="fa fa-close"></i> More Info
+        </button>
+
+      </div>
+    </div>
   </div>
 </nav>
 
