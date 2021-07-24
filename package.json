@@ -23,6 +23,7 @@
     "@angular/service-worker": "~11.2.5",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
+    "chart.js": "^3.4.1",
     "jquery": "^3.6.0",
     "node-kmeans": "^1.1.9",
     "plotly.js": "^1.47.4",
