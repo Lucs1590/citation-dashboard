@@ -20,7 +20,7 @@ export class Record implements Deserializable {
     this.sex = RegExp('\w*Men\w*').exec(this.program) ? 'Male' : 'Female';
     this.country = input['NATIONALITY'];
     this.startPosition = input['START NUMBER'];
-    this.endPosition = isNaN(+input['POSITION']) ? +input['POSITION'] : 99;
+    this.endPosition = isNaN(+input['POSITION']) ? +input['POSITION'] : 150;
     this.swim = toTimeSecond(input['SWIM']);
     this.t1 = toTimeSecond(input['T1']);
     this.bike = toTimeSecond(input['T2']);
