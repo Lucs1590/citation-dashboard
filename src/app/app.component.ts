@@ -5,7 +5,7 @@ import { dataset } from 'src/dataset/dataset';
 import { contries } from 'src/dataset/countries';
 import { Proof } from 'src/models/proof.model';
 import { Record } from 'src/models/record.model';
-import { Chart } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 import Plotly from 'plotly.js-dist';
 
 @Component({
@@ -24,7 +24,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   constructor(
     private formBuilder: FormBuilder,
-  ) { }
+  ) {
+    Chart.register(...registerables);
+  }
 
 
   public get proofsName(): string[] {
@@ -90,24 +92,35 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private makeBarGraphs(): void {
-    // dividir em 5 grupos
-    const swimData = this.currentDataset?.dataset?.map(record => record?.swim)?.filter(record => record < 7200);
-    const bikeData = this.currentDataset?.dataset?.map(record => record?.bike)?.filter(record => record < 7200);
-    const runData = this.currentDataset?.dataset?.map(record => record?.run)?.filter(record => record < 7200);
-    this.SwimTimeChart = this.createBarChart('lineSwimChart', ['de x a y', 'de y a z'], swimData);
-    this.BikeTimeChart = this.createBarChart('lineBikeChart', ['de x a y', 'de y a z'], bikeData);
-    this.RunTimeChart = this.createBarChart('lineRunChart', ['de x a y', 'de y a z'], runData);
+    const swimData = this.currentDataset?.dataset?.map(record => record?.swim);
+    const bikeData = this.currentDataset?.dataset?.map(record => record?.bike);
+    const runData = this.currentDataset?.dataset?.map(record => record?.run);
+    this.SwimTimeChart = this.createBarChart(
+      'histoSwimChart',
+      ['Até 12min', 'Entre 12 e 13min', 'Entre 13 e 14min', 'Entre 14 e 15min', 'Depois de 15min'],
+      this.countBetween(swimData, [720, 780, 840, 900])
+    );
+    this.BikeTimeChart = this.createBarChart(
+      'histoBikeChart',
+      ['Até 29min', 'Entre 29 e 31min', 'Entre 31 e 35min', 'Entre 35 e 38min', 'Depois de 38min'],
+      this.countBetween(bikeData, [1740, 1860, 2100, 2280])
+    );
+    this.RunTimeChart = this.createBarChart(
+      'histoRunChart',
+      ['Até 15min30', 'Entre 15min30 e 18min', 'Entre 18 e 21min', 'Entre 21 e 30min', 'Depois de 30min'],
+      this.countBetween(runData, [930, 1080, 1260, 1800])
+    );
   }
 
   private createBarChart(chartName: string, _labels: string[], _values: number[], _tooltips?): Chart {
     // colocar cor como parametro de entrada e mudar de acordo com o usuário inserido
-    const ctx = document.getElementsByClassName(chartName) as unknown as HTMLCanvasElement;
+    const ctx = document.getElementById(chartName) as unknown as HTMLCanvasElement;
     return new Chart(ctx, {
       type: 'bar',
       data: {
         labels: _labels,
         datasets: [{
-          label: 'Time',
+          label: 'Numb. of Athletes',
           data: _values,
           backgroundColor: 'rgba(138, 99, 69, 1)',
           borderWidth: 3,
@@ -139,6 +152,16 @@ export class AppComponent implements OnInit, AfterViewInit {
         // }
       }
     });
+  }
+
+  private countBetween(input: number[], values: number[]): number[] {
+    return [
+      input?.filter(value => value < values[0]).length,
+      input?.filter(value => value >= values[0] && value <= values[1]).length,
+      input?.filter(value => value >= values[1] && value <= values[2]).length,
+      input?.filter(value => value >= values[2] && value <= values[3]).length,
+      input?.filter(value => value > values[3]).length
+    ]
   }
 
   private makeScatterGraphs(): void { }
