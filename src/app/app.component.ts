@@ -5,6 +5,8 @@ import { dataset } from 'src/dataset/dataset';
 import { contries } from 'src/dataset/countries';
 import { Proof } from 'src/models/proof.model';
 import { Record } from 'src/models/record.model';
+import { Chart } from 'chart.js';
+import Plotly from 'plotly.js-dist';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +18,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   _dataset: Proof;
   _countries: { name: string; code: string; }[];
   currentDataset: { name?: string; dataset?: Record[]; };
+  SwimTimeChart: Chart;
+  BikeTimeChart: Chart;
+  RunTimeChart: Chart;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -74,12 +79,62 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private configureGraphs(): void {
-    this.makeLineGraphs();
+    this.makeBarGraphs();
     this.makeScatterGraphs();
     this.makeKmeansGraph();
   }
 
-  private makeLineGraphs(): void { }
+  private makeBarGraphs(): void {
+    // dividir em 5 grupos
+    const swimData = this.currentDataset?.dataset?.map(record => record?.swim)?.filter(record => record < 7200);
+    const bikeData = this.currentDataset?.dataset?.map(record => record?.bike)?.filter(record => record < 7200);
+    const runData = this.currentDataset?.dataset?.map(record => record?.run)?.filter(record => record < 7200);
+    this.SwimTimeChart = this.createBarChart('lineSwimChart', ['de x a y', 'de y a z'], swimData);
+    this.BikeTimeChart = this.createBarChart('lineBikeChart', ['de x a y', 'de y a z'], bikeData);
+    this.RunTimeChart = this.createBarChart('lineRunChart', ['de x a y', 'de y a z'], runData);
+  }
+
+  private createBarChart(chartName: string, _labels: string[], _values: number[], _tooltips?): Chart {
+    // colocar cor como parametro de entrada e mudar de acordo com o usuário inserido
+    const ctx = document.getElementsByClassName(chartName) as unknown as HTMLCanvasElement;
+    return new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: _labels,
+        datasets: [{
+          label: 'Time',
+          data: _values,
+          backgroundColor: 'rgba(138, 99, 69, 1)',
+          borderWidth: 3,
+          borderColor: 'rgba(138, 99, 69, 1)',
+          hoverBackgroundColor: 'rgba(178, 141, 104, 0.9)'
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          },
+          x: {
+            offset: true,
+            display: false
+          }
+        }
+        // plugins: {
+        //   tooltips: {
+        //     enabled: true,
+        //     mode: 'single',
+        //     callbacks: {
+        //       title: (tooltipItems: { label: string; value: string; }[]) => {
+        //         tooltipItems[0].value = Number(tooltipItems[0].value).toLocaleString('pt-BR') + ' Kg';
+        //         return tooltipItems[0].label;
+        //       }
+        //     }
+        //   }
+        // }
+      }
+    });
+  }
 
   private makeScatterGraphs(): void { }
 
