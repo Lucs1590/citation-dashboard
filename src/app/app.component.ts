@@ -26,6 +26,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     return this._dataset.map(subset => subset?.name);
   }
 
+  public get timeIndicator(): string[] {
+    const timeValues = this.currentDataset?.dataset?.map(record => record.totalTime)?.filter(record => record < 7200);
+    const avg = (timeValues.reduce((a, b) => a + b, 0) / timeValues.length) || 0;
+    return [
+      this.secondToTime(Math.min(...timeValues)),
+      this.secondToTime(avg),
+      this.secondToTime(Math.max(...timeValues))
+    ]
+  }
+
   ngOnInit(): void {
     this.createForm();
     this._dataset = this.createDataset();
@@ -35,6 +45,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     new bootstrap.Modal(document.getElementById('modalForm')).toggle()
+    this.configureGraphs();
   }
 
   private createForm(): void {
@@ -62,11 +73,26 @@ export class AppComponent implements OnInit, AfterViewInit {
     return _dataset.sort((a, b) => ('' + b.name).localeCompare(a.name));
   }
 
+  private configureGraphs(): void {
+    this.makeLineGraphs();
+    this.makeScatterGraphs();
+    this.makeKmeansGraph();
+  }
+
+  private makeLineGraphs(): void { }
+
+  private makeScatterGraphs(): void { }
+
+  private makeKmeansGraph(): void { }
+
+  public secondToTime(time: number): string {
+    return new Date(time * 1000).toISOString().substr(11, 8);
+  }
+
   public changeSelection(value: string): void {
     this.currentDataset = this._dataset.filter(subset => subset.name == value)[0];
   }
 
-  public submit(): void {
-  }
+  public submit(): void { }
 
 }
