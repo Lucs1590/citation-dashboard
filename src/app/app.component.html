@@ -58,20 +58,18 @@
 
       <div class="row mb-2">
         <div class="col">
-          <div class="card" style="width: 18rem;">
+          <div class="card">
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+              <h6 class="card-subtitle mb-2 text-muted">Minimum Time</h6>
+              <p class="card-text">{{ timeIndicator[0] }}</p>
             </div>
           </div>
         </div>
         <div class="col">
-          <div class="card" style="width: 18rem;">
+          <div class="card">
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+              <h6 class="card-subtitle mb-2 text-muted">Maximum Time</h6>
+              <p class="card-text">{{ timeIndicator[1] }}</p>
             </div>
           </div>
         </div>
@@ -79,31 +77,43 @@
 
       <div class="row mb-2">
         <div class="col">
-          <div class="card" style="width: 18rem;">
+          <div class="card">
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+              <h6 class="card-subtitle mb-2 text-muted">Average Time</h6>
+              <p class="card-text">{{ timeIndicator[2] }}</p>
             </div>
           </div>
         </div>
         <div class="col">
-          <div class="card" style="width: 18rem;">
+          <div class="card">
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+              <h6 class="card-subtitle mb-2 text-muted">Your Time</h6>
+              <p class="card-text"> 00:01:30 </p>
             </div>
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="card">
-          <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">Champion</h6>
+              <div class="d-flex flex-row mb-3">
+                <div class="flex-fill">
+                  {{ secondToTime(championInfo?.swim) }} <br>
+                  {{ secondToTime(championInfo?.t1) }}
+                </div>
+                <div class="flex-fill">
+                  {{ secondToTime(championInfo?.bike) }} <br>
+                  {{ secondToTime(championInfo?.t2) }}
+                </div>
+                <div class="flex-fill">
+                  {{ secondToTime(championInfo?.run) }} <br>
+                  {{ secondToTime(championInfo?.totalTime) }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -112,17 +122,21 @@
 
   <!-- Mid -->
   <div class="row mt-3">
-    <div class="col mr-3">
-      <!-- Total by Swim  -->
-      <div class="col">
-        <div class="card">
-          <canvas id="totalSwimChart" width="9.375rem" height="9.375rem"></canvas>
+    <!-- Total by Swim  -->
+    <div class="col">
+      <div class="card text-center">
+            <h5 class="card-title">ABC</h5>
+        <div class="card-body">
+          <canvas id="totalSwimChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
         </div>
       </div>
-      <!-- Swim Histogram -->
-      <div class="col">
-        <div class="card">
-          <canvas id="histoSwimChart" width="9.375rem" height="9.375rem"></canvas>
+    </div>
+    <!-- Swim Histogram -->
+    <div class="col">
+      <div class="card text-center">
+            <h5 class="card-title">ABC</h5>
+        <div class="card-body">
+          <canvas id="histoSwimChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
         </div>
       </div>
     </div>
@@ -157,14 +171,20 @@
     <div class="col mr-3">
       <!-- Total by Bike  -->
       <div class="col">
-        <div class="card">
-          <canvas id="totalBikeChart" width="9.375rem" height="9.375rem"></canvas>
+        <div class="card text-center">
+              <h5 class="card-title">ABC</h5>
+          <div class="card-body">
+            <canvas id="totalBikeChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
+          </div>
         </div>
       </div>
       <!-- Bike Histogram -->
       <div class="col">
-        <div class="card">
-          <canvas id="histoBikeChart" width="9.375rem" height="9.375rem"></canvas>
+        <div class="card text-center">
+              <h5 class="card-title">ABC</h5>
+          <div class="card-body">
+            <canvas id="histoBikeChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
+          </div>
         </div>
       </div>
     </div>
@@ -172,14 +192,20 @@
     <div class="col">
       <!-- Total by Run  -->
       <div class="col">
-        <div class="card">
-          <canvas id="totalRunChart" width="9.375rem" height="9.375rem"></canvas>
+        <div class="card text-center">
+              <h5 class="card-title">ABC</h5>
+          <div class="card-body">
+            <canvas id="totalRunChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
+          </div>
         </div>
       </div>
       <!-- Run Histogram -->
       <div class="col">
-        <div class="card">
-          <canvas id="histoRunChart" width="9.375rem" height="9.375rem"></canvas>
+        <div class="card text-center">
+              <h5 class="card-title">ABC</h5>
+          <div class="card-body">
+            <canvas id="histoRunChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
+          </div>
         </div>
       </div>
     </div>
@@ -278,8 +304,11 @@
         </div>
 
         <!-- Footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <div class="modal-footer text-center">
+              <h5 class="card-title">ABC</h5>
+          <div class="card-body">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
           <button type="submit" class="btn btn-success">Submit</button>
         </div>
       </form>
