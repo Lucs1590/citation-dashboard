@@ -34,7 +34,7 @@ export class Record implements Deserializable {
 function toTimeSecond(time: string): number {
   const newTime = String(time).split(':')
   if (newTime.length == 1 || JSON.stringify(newTime) === JSON.stringify(['00', '00', '00'])) {
-    return 18000;
+    return 7200;
   }
   const hour = +newTime[0] * 3600;
   const minute = +newTime[1] * 60;
