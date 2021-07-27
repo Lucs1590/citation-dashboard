@@ -48,6 +48,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     return this.currentDataset.dataset.slice(0, 10);
   }
 
+  public get championInfo(): Record {
+    return this.top10[0] as Record;
+  }
+
   ngOnInit(): void {
     this.createForm();
     this._dataset = this.createDataset();
