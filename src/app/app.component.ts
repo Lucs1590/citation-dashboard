@@ -6,7 +6,7 @@ import { contries } from 'src/dataset/countries';
 import { Proof } from 'src/models/proof.model';
 import { Record } from 'src/models/record.model';
 import { Chart, registerables } from 'chart.js';
-import Plotly from 'plotly.js-dist';
+import * as clustering from 'density-clustering';
 
 @Component({
   selector: 'app-root',
@@ -209,7 +209,14 @@ export class AppComponent implements OnInit, AfterViewInit {
       });
   }
 
-  private makeKmeansGraph(): void { }
+  private makeKmeansGraph(): void {
+    const dataset = this.currentDataset?.dataset
+      .map(record => { return { x: record?.totalTime, y: record?.bike }; })
+      .map(record => Object.values(record));
+
+    const kmeans = new clustering.KMEANS();
+    const clusters = kmeans.run(dataset, 5);
+  }
 
   clearGraphs() {
     this.SwimTimeChart?.destroy();
