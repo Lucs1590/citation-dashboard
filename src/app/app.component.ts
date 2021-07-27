@@ -216,6 +216,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     const kmeans = new clustering.KMEANS();
     const clusters = kmeans.run(dataset, 5);
+
+    this.KmeansChart = this.createScatterChart(
+      'kmeansChart',
+      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'])
+    );
   }
 
   clearGraphs() {
