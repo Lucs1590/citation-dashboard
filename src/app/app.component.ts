@@ -160,6 +160,12 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private makeKmeansGraph(): void { }
 
+  clearGraphs() {
+    this.SwimTimeChart.destroy();
+    this.BikeTimeChart.destroy();
+    this.RunTimeChart.destroy();
+  }
+
   public secondToTime(time: number): string {
     return new Date(time * 1000).toISOString().substr(11, 8);
   }
@@ -167,6 +173,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   public changeSelection(value: string): void {
     this.currentDataset = this._dataset.filter(subset => subset.name == value)[0];
     // Insert user data inside currentDataset here
+    this.clearGraphs();
+    this.configureGraphs();
   }
 
   public submit(): void {
