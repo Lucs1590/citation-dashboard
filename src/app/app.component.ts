@@ -91,8 +91,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   public changeSelection(value: string): void {
     this.currentDataset = this._dataset.filter(subset => subset.name == value)[0];
+    // Insert user data inside currentDataset here
   }
 
-  public submit(): void { }
+  public submit(): void {
+    // Insert user data inside currentDataset here
+  }
 
 }
