@@ -23,14 +23,9 @@
       </div>
       <div class="row">
 
-        <button class="btn btn-warning btn-sm" style="background-color: #FF6A00;" type="button"
+        <!-- <button class="btn btn-warning btn-sm" style="background-color: #FF6A00;" type="button"
           data-bs-toggle="collapse" data-bs-target="#navbarExternalContent" data-target="#navbarExternalContent"
           aria-controls="navbarExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-          More Info
-        </button>
-
-        <!-- <button class="btn btn-warning btn-sm" style="background-color: #FF6A00;" type="button" data-toggle="collapse"
-          data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
           More Info
         </button> -->
 
@@ -50,7 +45,7 @@
     <!-- Kmeans -->
     <div class="col mr-3">
       <div class="card">
-        <canvas id="kmeansChart" width="18.75rem" height="18.75rem"></canvas>
+        <canvas id="kmeansChart" class="primary"></canvas>
       </div>
     </div>
     <!-- Time -->
@@ -122,21 +117,38 @@
 
   <!-- Mid -->
   <div class="row mt-3">
-    <!-- Total by Swim  -->
     <div class="col">
-      <div class="card text-center">
-        <h5 class="card-title">ABC</h5>
+      <!-- Bike Histogram -->
+      <div class="card mb-4">
+        <h6 class="card-title mt-2" style="margin-left: 2rem;">Bike Histogram</h6>
         <div class="card-body">
-          <canvas id="totalSwimChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
+          <canvas id="histoBikeChart" class="secondary"></canvas>
+        </div>
+      </div>
+
+      <!-- Total by Bike  -->
+      <div class="card">
+        <h6 class="card-title mt-2" style="margin-left: 2rem;">Total x Bike Time</h6>
+        <div class="card-body">
+          <canvas id="totalBikeChart" class="secondary"></canvas>
         </div>
       </div>
     </div>
-    <!-- Swim Histogram -->
+
     <div class="col">
-      <div class="card text-center">
-        <h5 class="card-title">ABC</h5>
+      <!-- Swim Histogram -->
+      <div class="card mb-4">
+        <h6 class="card-title mt-2" style="margin-left: 2rem;">Swim Histogram</h6>
         <div class="card-body">
-          <canvas id="histoSwimChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
+          <canvas id="histoSwimChart" class="secondary"></canvas>
+        </div>
+      </div>
+
+      <!-- Total by Swim  -->
+      <div class="card">
+        <h6 class="card-title mt-2" style="margin-left: 2rem;">Total x Swim Time</h6>
+        <div class="card-body">
+          <canvas id="totalSwimChart" class="secondary"></canvas>
         </div>
       </div>
     </div>
@@ -168,44 +180,27 @@
 
   <!-- End -->
   <div class="row mt-3">
-    <!-- Total by Bike  -->
-    <div class="col">
-      <div class="card text-center">
-        <h5 class="card-title">ABC</h5>
-        <div class="card-body">
-          <canvas id="totalBikeChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
-        </div>
-      </div>
-    </div>
-    <!-- Bike Histogram -->
-    <div class="col">
-      <div class="card text-center">
-        <h5 class="card-title">ABC</h5>
-        <div class="card-body">
-          <canvas id="histoBikeChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
-        </div>
-      </div>
-    </div>
-
     <!-- Total by Run  -->
     <div class="col">
-      <div class="card text-center">
-        <h5 class="card-title">ABC</h5>
+      <div class="card">
+        <h6 class="card-title mt-2" style="margin-left: 2rem;">Total x Run Time</h6>
         <div class="card-body">
-          <canvas id="totalRunChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
+          <canvas id="totalRunChart" class="secondary"></canvas>
         </div>
       </div>
     </div>
     <!-- Run Histogram -->
     <div class="col">
-      <div class="card text-center">
-        <h5 class="card-title">ABC</h5>
+      <div class="card">
+        <h6 class="card-title mt-2" style="margin-left: 2rem;">Run Histogram</h6>
         <div class="card-body">
-          <canvas id="histoRunChart" class="secondary" width="1.375rem" height="1.375rem"></canvas>
+          <canvas id="histoRunChart" class="secondary"></canvas>
         </div>
       </div>
     </div>
   </div>
+</div>
+
 
 <!-- Modal Form -->
 <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -299,11 +294,8 @@
         </div>
 
         <!-- Footer -->
-        <div class="modal-footer text-center">
-          <h5 class="card-title">ABC</h5>
-          <div class="card-body">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Submit</button>
         </div>
       </form>

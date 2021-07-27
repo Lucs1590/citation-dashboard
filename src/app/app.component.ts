@@ -101,17 +101,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     const runData = this.currentDataset?.dataset?.map(record => record?.run);
     this.SwimTimeChart = this.createBarChart(
       'histoSwimChart',
-      ['Até 12min', 'Entre 12 e 13min', 'Entre 13 e 14min', 'Entre 14 e 15min', 'Depois de 15min'],
+      ['Until 12min', 'Between 12 and 13min', 'Between 13 and 14min', 'Between 14 and 15min', 'After 15min'],
       this.countBetween(swimData, [720, 780, 840, 900])
     );
     this.BikeTimeChart = this.createBarChart(
       'histoBikeChart',
-      ['Até 29min', 'Entre 29 e 31min', 'Entre 31 e 35min', 'Entre 35 e 38min', 'Depois de 38min'],
+      ['Until 29min', 'Between 29 and 31min', 'Between 31 and 35min', 'Between 35 and 38min', 'After 38min'],
       this.countBetween(bikeData, [1740, 1860, 2100, 2280])
     );
     this.RunTimeChart = this.createBarChart(
       'histoRunChart',
-      ['Até 15min30', 'Entre 15min30 e 18min', 'Entre 18 e 21min', 'Entre 21 e 30min', 'Depois de 30min'],
+      ['Until 15min30', 'Between 15min30 and 18min', 'Between 18 and 21min', 'Between 21 and 30min', 'After 30min'],
       this.countBetween(runData, [930, 1080, 1260, 1800])
     );
   }
@@ -124,7 +124,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       data: {
         labels: _labels,
         datasets: [{
-          label: 'Numb. of Athletes',
+          label: 'Numb. Athletes',
           data: _values,
           backgroundColor: 'rgba(138, 99, 69, 1)',
           borderWidth: 3,
