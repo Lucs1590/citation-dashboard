@@ -21,6 +21,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   SwimTimeChart: Chart;
   BikeTimeChart: Chart;
   RunTimeChart: Chart;
+  SwimScatterChart: Chart;
+  BikeScatterChart: Chart;
+  RunScatterChart: Chart;
+  KmeansChart: Chart;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -116,7 +120,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     );
   }
 
-  private createBarChart(chartName: string, _labels: string[], _values: number[], _tooltips?): Chart {
+  private createBarChart(chartName: string, _labels: string[], _values: number[]): Chart {
     // colocar cor como parametro de entrada e mudar de acordo com o usuário inserido
     const ctx = document.getElementById(chartName) as unknown as HTMLCanvasElement;
     return new Chart(ctx, {
@@ -156,14 +160,65 @@ export class AppComponent implements OnInit, AfterViewInit {
     ]
   }
 
-  private makeScatterGraphs(): void { }
+  private makeScatterGraphs(): void {
+    this.SwimScatterChart = this.createScatterChart(
+      'totalSwimChart',
+      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'swim'])
+    );
+    this.BikeScatterChart = this.createScatterChart(
+      'totalBikeChart',
+      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'])
+    );
+    this.RunScatterChart = this.createScatterChart(
+      'totalRunChart',
+      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'run'])
+    );
+  }
+
+  private createScatterChart(chartName: string, _values: { x: number; y: number }[]): Chart {
+    const ctx = document.getElementById(chartName) as unknown as HTMLCanvasElement;
+    return new Chart(ctx, {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          label: 'Total x Modality Time',
+          data: _values,
+          backgroundColor: 'rgba(138, 99, 69, 1)',
+          borderWidth: 2,
+          borderColor: 'rgba(138, 99, 69, 1)',
+          hoverBackgroundColor: 'rgba(178, 141, 104, 0.9)'
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            offset: true,
+            type: 'linear',
+            position: 'bottom'
+          }
+        }
+      }
+    });
+  }
+
+  private generateXYObj(dataset: Record[], fieldName: string[]): { x: number; y: number }[] {
+    return dataset.
+      filter(record => record[fieldName[0]] < 7200).
+      map(record => {
+        return { x: record[fieldName[0]], y: record[fieldName[1]] };
+      });
+  }
 
   private makeKmeansGraph(): void { }
 
   clearGraphs() {
-    this.SwimTimeChart.destroy();
-    this.BikeTimeChart.destroy();
-    this.RunTimeChart.destroy();
+    this.SwimTimeChart?.destroy();
+    this.BikeTimeChart?.destroy();
+    this.RunTimeChart?.destroy();
+    this.SwimScatterChart?.destroy();
+    this.BikeScatterChart?.destroy();
+    this.RunScatterChart?.destroy();
+    this.KmeansChart?.destroy();
   }
 
   public secondToTime(time: number): string {
