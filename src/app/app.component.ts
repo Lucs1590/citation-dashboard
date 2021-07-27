@@ -142,18 +142,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             display: false
           }
         }
-        // plugins: {
-        //   tooltips: {
-        //     enabled: true,
-        //     mode: 'single',
-        //     callbacks: {
-        //       title: (tooltipItems: { label: string; value: string; }[]) => {
-        //         tooltipItems[0].value = Number(tooltipItems[0].value).toLocaleString('pt-BR') + ' Kg';
-        //         return tooltipItems[0].label;
-        //       }
-        //     }
-        //   }
-        // }
       }
     });
   }
