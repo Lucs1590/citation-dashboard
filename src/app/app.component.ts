@@ -41,6 +41,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     ]
   }
 
+
+  public get top10(): Proof {
+    return this.currentDataset.dataset.slice(0, 10);
+  }
+
   ngOnInit(): void {
     this.createForm();
     this._dataset = this.createDataset();
@@ -72,7 +77,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const _dataset = dataset?.map((subset) => {
       return {
         name: subset?.name,
-        dataset: subset?.dataset.map(record => new Record().deserialize(record))
+        dataset: subset?.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a.totalTime - b.totalTime))
       }
     });
     return _dataset.sort((a, b) => ('' + b.name).localeCompare(a.name));
