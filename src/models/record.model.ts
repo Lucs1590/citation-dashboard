@@ -20,7 +20,7 @@ export class Record implements Deserializable {
     this.sex = RegExp('\w*Men\w*').exec(this.program) ? 'Male' : 'Female';
     this.country = input['NATIONALITY'];
     this.startPosition = input['START NUMBER'];
-    this.endPosition = isNaN(+input['POSITION']) ? +input['POSITION'] : 150;
+    this.endPosition = isNaN(+input['POSITION']) ? 150 : +input['POSITION'];
     this.swim = toTimeSecond(input['SWIM']);
     this.t1 = toTimeSecond(input['T1']);
     this.bike = toTimeSecond(input['T2']);
@@ -33,8 +33,8 @@ export class Record implements Deserializable {
 
 function toTimeSecond(time: string): number {
   const newTime = String(time).split(':')
-  if (newTime.length == 1 || newTime == ['00', '00', '00']) {
-    return 25200;
+  if (newTime.length == 1 || JSON.stringify(newTime) === JSON.stringify(['00', '00', '00'])) {
+    return 18000;
   }
   const hour = +newTime[0] * 3600;
   const minute = +newTime[1] * 60;

@@ -43,12 +43,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       age: [null],
       sex: [null, Validators.required],
       country: [null],
-      swim: ['', Validators.required],
-      t1: ['', Validators.required],
-      bike: ['', Validators.required],
-      t2: ['', Validators.required],
-      run: ['', Validators.required],
-      totalTime: [''],
+      swim: [null, Validators.required],
+      t1: [null, Validators.required],
+      bike: [null, Validators.required],
+      t2: [null, Validators.required],
+      run: [null, Validators.required],
+      totalTime: [null],
     })
   }
 
@@ -66,11 +66,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.currentDataset = this._dataset.filter(subset => subset.name == value)[0];
   }
 
-  public submit() {
-    /* let scholar = require('google-scholar');
-    scholar.search(this.form.value.tag).then(resultsObj => {
-      this.tagResult2 = resultsObj;
-    }); */
+  public submit(): void {
   }
 
 }
