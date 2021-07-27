@@ -23,7 +23,7 @@ export class Record implements Deserializable {
     this.endPosition = isNaN(+input['POSITION']) ? 150 : +input['POSITION'];
     this.swim = toTimeSecond(input['SWIM']);
     this.t1 = toTimeSecond(input['T1']);
-    this.bike = toTimeSecond(input['T2']);
+    this.bike = toTimeSecond(input['BIKE']);
     this.t2 = toTimeSecond(input['T2']);
     this.run = toTimeSecond(input['RUN']);
     this.totalTime = toTimeSecond(input['TOTAL TIME']);
