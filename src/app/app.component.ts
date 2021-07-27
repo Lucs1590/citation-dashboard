@@ -225,6 +225,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     return new Date(time * 1000).toISOString().substr(11, 8);
   }
 
+  public upDownDiff(startPosition: number, endPosition: number) {
+    const result = endPosition - startPosition;
+    if (result > 0) {
+      return `&#9660; ${Math.abs(result)}`;
+    } else if (result < 0) {
+      return `&#9650; ${Math.abs(result)}`;
+    } else {
+      return `&#8212;`;
+    }
+  }
+
   public changeSelection(value: string): void {
     this.currentDataset = this._dataset.filter(subset => subset.name == value)[0];
     // Insert user data inside currentDataset here

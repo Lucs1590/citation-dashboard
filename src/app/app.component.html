@@ -170,7 +170,7 @@
             <tr *ngFor="let record of top10; let i=index">
               <th scope="row">{{i + 1}}</th>
               <td>{{ record.name }}</td>
-              <td>{{ record.endPosition }}</td>
+              <td [innerHTML]="upDownDiff(record.startPosition, i+i)"></td>
               <td>{{ secondToTime(record.totalTime) }}</td>
             </tr>
           </tbody>
