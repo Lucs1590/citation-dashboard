@@ -38,10 +38,150 @@
     </div>
   </div>
 </nav>
-
 <div class="collapse" id="navbarExternalContent">
   <div class="p-4 navbar-light" style="background-color: #FF9F00;">
     <small>Select more filters.</small>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <!-- Start -->
+  <div class="row">
+    <!-- Kmeans -->
+    <div class="col mr-3">
+      <div class="card">
+        <canvas id="kmeansChart" width="18.75rem" height="18.75rem"></canvas>
+      </div>
+    </div>
+    <!-- Time -->
+    <div class="col">
+
+      <div class="row mb-2">
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mid -->
+  <div class="row mt-3">
+    <div class="col mr-3">
+      <!-- Total by Swim  -->
+      <div class="col">
+        <div class="card">
+          <canvas id="totalSwimChart" width="9.375rem" height="9.375rem"></canvas>
+        </div>
+      </div>
+      <!-- Swim Histogram -->
+      <div class="col">
+        <div class="card">
+          <canvas id="histoSwimChart" width="9.375rem" height="9.375rem"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <!-- Table -->
+      <div class="card">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Difference of Start</th>
+              <th scope="col">End Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of top10; let i=index">
+              <th scope="row">{{i + 1}}</th>
+              <td>{{ record.name }}</td>
+              <td>{{ record.endPosition }}</td>
+              <td>{{ secondToTime(record.totalTime) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- End -->
+  <div class="row mt-3">
+    <div class="col mr-3">
+      <!-- Total by Bike  -->
+      <div class="col">
+        <div class="card">
+          <canvas id="totalBikeChart" width="9.375rem" height="9.375rem"></canvas>
+        </div>
+      </div>
+      <!-- Bike Histogram -->
+      <div class="col">
+        <div class="card">
+          <canvas id="histoBikeChart" width="9.375rem" height="9.375rem"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- Total by Run  -->
+      <div class="col">
+        <div class="card">
+          <canvas id="totalRunChart" width="9.375rem" height="9.375rem"></canvas>
+        </div>
+      </div>
+      <!-- Run Histogram -->
+      <div class="col">
+        <div class="card">
+          <canvas id="histoRunChart" width="9.375rem" height="9.375rem"></canvas>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
