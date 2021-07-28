@@ -57,12 +57,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     return this.top10[0] as Record;
   }
 
-
-  public get userDataPosition(): number {
-    return this.currentDataset?.dataset?.indexOf(this.userData);
-  }
-
-
   ngOnInit(): void {
     this.createForm();
     this._dataset = this.createDataset();
@@ -102,8 +96,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private configureGraphs(): void {
     this.makeBarGraphs();
-    this.makeScatterGraphs();
     this.makeKmeansGraph();
+    if (this.userData) { this.userData.endPosition = this.currentDataset?.dataset?.indexOf(this.userData) };
+    this.currentDataset.dataset.splice(this.currentDataset.dataset.indexOf(this.userData), 1);
+    this.makeScatterGraphs();
   }
 
   private makeBarGraphs(): void {
@@ -348,7 +344,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   public changeSelection(value: string): void {
     this.currentDataset = this._dataset.filter(subset => subset.name == value)[0];
-    this.currentDataset.dataset.push(this.userData);
+    if (this.userData) { this.currentDataset.dataset.push(this.userData) };
     this.currentDataset.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a?.totalTime - b?.totalTime));
     this.clearGraphs();
     this.configureGraphs();
