@@ -39,7 +39,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   public get timeIndicator(): string[] {
-    const timeValues = this.currentDataset?.dataset?.map(record => record.totalTime)?.filter(record => record < 7200);
+    const timeValues = this.currentDataset?.dataset?.map(record => record?.totalTime)?.filter(record => record < 7200);
     const avg = (timeValues.reduce((a, b) => a + b, 0) / timeValues.length) || 0;
     return [
       this.secondToTime(Math.min(...timeValues)),
@@ -57,11 +57,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     return this.top10[0] as Record;
   }
 
-  
-  public get userDataPosition() : number {
+
+  public get userDataPosition(): number {
     return this.currentDataset?.dataset?.indexOf(this.userData);
   }
-  
+
 
   ngOnInit(): void {
     this.createForm();
@@ -94,7 +94,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const _dataset = dataset?.map((subset) => {
       return {
         name: subset?.name,
-        dataset: subset?.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a.totalTime - b.totalTime))
+        dataset: subset?.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a?.totalTime - b?.totalTime))
       }
     });
     return _dataset.sort((a, b) => ('' + b.name).localeCompare(a.name));
@@ -173,26 +173,36 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.SwimScatterChart = this.createScatterChart(
       'totalSwimChart',
       this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'swim'], true),
-      ['rgba(241,32,18,1)', 'rgba(241,32,18,0.85)']
+      ['rgba(241,32,18,1)', 'rgba(241,32,18,0.85)'],
+      'swim'
     );
     this.BikeScatterChart = this.createScatterChart(
       'totalBikeChart',
       this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'], true),
-      ['rgba(255,106,0,1)', 'rgba(255,106,0,0.85)']
+      ['rgba(255,106,0,1)', 'rgba(255,106,0,0.85)'],
+      'bike'
     );
     this.RunScatterChart = this.createScatterChart(
       'totalRunChart',
       this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'run'], true),
-      ['rgba(255,159,0,1)', 'rgba(255,159,0,0.85)']
+      ['rgba(255,159,0,1)', 'rgba(255,159,0,0.85)'],
+      'run'
     );
   }
 
-  private createScatterChart(chartName: string, _values: { x: number; y: number }[], colors: string[]): Chart {
+  private createScatterChart(chartName: string, _values: { x: number; y: number }[], colors: string[], modality: string): Chart {
     const ctx = document.getElementById(chartName) as unknown as HTMLCanvasElement;
     return new Chart(ctx, {
       type: 'scatter',
       data: {
         datasets: [{
+          label: 'My mark',
+          data: [{ x: this.userData?.totalTime ?? 7200, y: this.userData[modality] ?? 7200 }],
+          backgroundColor: 'rgba(153,153,153,1)',
+          borderWidth: 2,
+          borderColor: 'rgba(153,153,153,1)',
+          hoverBackgroundColor: 'rgba(153,153,153,0.85)'
+        }, {
           label: 'Total x Modality Time',
           data: _values,
           backgroundColor: colors[0],
@@ -329,7 +339,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public changeSelection(value: string): void {
     this.currentDataset = this._dataset.filter(subset => subset.name == value)[0];
     this.currentDataset.dataset.push(this.userData);
-    this.currentDataset.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a.totalTime - b.totalTime));
+    this.currentDataset.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a?.totalTime - b?.totalTime));
     this.clearGraphs();
     this.configureGraphs();
   }
@@ -359,7 +369,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       });
       console.log(this.userData);
       this.currentDataset.dataset.push(this.userData);
-      this.currentDataset.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a.totalTime - b.totalTime));
+      this.currentDataset.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a?.totalTime - b?.totalTime));
       this.clearGraphs();
       this.configureGraphs();
     }
