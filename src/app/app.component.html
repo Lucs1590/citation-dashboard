@@ -47,7 +47,7 @@
       <div class="card">
         <h5 class="card-title mt-2" style="margin-left: 0.5rem;">K-means</h5>
         <h6 class="card-subtitle mb-2 text-muted" style="margin-left: 0.5rem;">Total Time x Bike Time</h6>
-        <canvas id="kmeansChart" class="primary"></canvas>
+        <canvas id="kmeansChart" class="primary mb-3"></canvas>
       </div>
     </div>
     <!-- Time -->
@@ -55,17 +55,17 @@
 
       <div class="row mb-3">
         <div class="col">
-          <div class="card">
+          <div class="card text-dark" style="background-color: rgba(241, 33, 18, 0.582);">
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Minimum Time</h6>
+              <h6 class="card-subtitle mb-2 text-white">Minimum Time</h6>
               <p class="card-text">{{ timeIndicator[0] }}</p>
             </div>
           </div>
         </div>
         <div class="col">
-          <div class="card">
+          <div class="card text-dark" style="background-color: rgba(202, 0, 0, 0.699);">
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Maximum Time</h6>
+              <h6 class="card-subtitle mb-2 text-white">Maximum Time</h6>
               <p class="card-text">{{ timeIndicator[2] }}</p>
             </div>
           </div>
@@ -74,17 +74,17 @@
 
       <div class="row mb-3">
         <div class="col">
-          <div class="card">
+          <div class="card text-dark" style="background-color: rgba(255, 106, 0, 0.651);">
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Average Time</h6>
+              <h6 class="card-subtitle mb-2 text-white">Average Time</h6>
               <p class="card-text">{{ timeIndicator[1] }}</p>
             </div>
           </div>
         </div>
         <div class="col">
-          <div class="card">
+          <div class="card text-dark" style="background-color: rgba(255, 157, 0, 0.61);">
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Your Time</h6>
+              <h6 class="card-subtitle mb-2 text-white">Your Time and Position</h6>
               <p class="card-text"> 00:01:30 </p>
             </div>
           </div>
@@ -93,9 +93,9 @@
 
       <div class="row mb-3">
         <div class="col">
-          <div class="card">
+          <div class="card text-dark" style="background-color: rgba(153, 153, 153, 0.699);">
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Champion Metrics</h6>
+              <h6 class="card-subtitle mb-2 text-white">Champion Metrics</h6>
               <div class="d-flex flex-row mb-3">
                 <div class="flex-fill">
                   {{ secondToTime(championInfo?.swim) }} <br>
