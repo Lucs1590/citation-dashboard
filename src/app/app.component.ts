@@ -106,21 +106,24 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.SwimTimeChart = this.createBarChart(
       'histoSwimChart',
       ['Until 12min', 'Between 12 and 13min', 'Between 13 and 14min', 'Between 14 and 15min', 'After 15min'],
-      this.countBetween(swimData, [720, 780, 840, 900])
+      this.countBetween(swimData, [720, 780, 840, 900]),
+      ['rgba(241,32,18,1)', 'rgba(241,32,18,0.9)']
     );
     this.BikeTimeChart = this.createBarChart(
       'histoBikeChart',
       ['Until 29min', 'Between 29 and 31min', 'Between 31 and 35min', 'Between 35 and 38min', 'After 38min'],
-      this.countBetween(bikeData, [1740, 1860, 2100, 2280])
+      this.countBetween(bikeData, [1740, 1860, 2100, 2280]),
+      ['rgba(255,106,0,1)', 'rgba(255,106,0,0.9)']
     );
     this.RunTimeChart = this.createBarChart(
       'histoRunChart',
       ['Until 15min30', 'Between 15min30 and 18min', 'Between 18 and 21min', 'Between 21 and 30min', 'After 30min'],
-      this.countBetween(runData, [930, 1080, 1260, 1800])
+      this.countBetween(runData, [930, 1080, 1260, 1800]),
+      ['rgba(255,159,0,1)', 'rgba(255,159,0,0.9)']
     );
   }
 
-  private createBarChart(chartName: string, _labels: string[], _values: number[]): Chart {
+  private createBarChart(chartName: string, _labels: string[], _values: number[], colors: string[]): Chart {
     // colocar cor como parametro de entrada e mudar de acordo com o usuário inserido
     const ctx = document.getElementById(chartName) as unknown as HTMLCanvasElement;
     return new Chart(ctx, {
@@ -130,10 +133,10 @@ export class AppComponent implements OnInit, AfterViewInit {
         datasets: [{
           label: 'Numb. Athletes',
           data: _values,
-          backgroundColor: 'rgba(138, 99, 69, 1)',
+          backgroundColor: colors[0],
           borderWidth: 3,
-          borderColor: 'rgba(138, 99, 69, 1)',
-          hoverBackgroundColor: 'rgba(178, 141, 104, 0.9)'
+          borderColor: colors[0],
+          hoverBackgroundColor: colors[1]
         }]
       },
       options: {
@@ -163,19 +166,22 @@ export class AppComponent implements OnInit, AfterViewInit {
   private makeScatterGraphs(): void {
     this.SwimScatterChart = this.createScatterChart(
       'totalSwimChart',
-      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'swim'], true)
+      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'swim'], true),
+      ['rgba(241,32,18,1)', 'rgba(241,32,18,0.9)']
     );
     this.BikeScatterChart = this.createScatterChart(
       'totalBikeChart',
-      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'], true)
+      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'], true),
+      ['rgba(255,106,0,1)', 'rgba(255,106,0,0.9)']
     );
     this.RunScatterChart = this.createScatterChart(
       'totalRunChart',
-      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'run'], true)
+      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'run'], true),
+      ['rgba(255,159,0,1)', 'rgba(255,159,0,0.9)']
     );
   }
 
-  private createScatterChart(chartName: string, _values: { x: number; y: number }[]): Chart {
+  private createScatterChart(chartName: string, _values: { x: number; y: number }[], colors: string[]): Chart {
     const ctx = document.getElementById(chartName) as unknown as HTMLCanvasElement;
     return new Chart(ctx, {
       type: 'scatter',
@@ -183,10 +189,10 @@ export class AppComponent implements OnInit, AfterViewInit {
         datasets: [{
           label: 'Total x Modality Time',
           data: _values,
-          backgroundColor: 'rgba(138, 99, 69, 1)',
+          backgroundColor: colors[0],
           borderWidth: 2,
-          borderColor: 'rgba(138, 99, 69, 1)',
-          hoverBackgroundColor: 'rgba(178, 141, 104, 0.9)'
+          borderColor: colors[0],
+          hoverBackgroundColor: colors[1]
         }]
       },
       options: {
@@ -289,7 +295,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
-  clearGraphs() {
+  private clearGraphs(): void {
     this.SwimTimeChart?.destroy();
     this.BikeTimeChart?.destroy();
     this.RunTimeChart?.destroy();
@@ -303,7 +309,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     return new Date(time * 1000).toISOString().substr(11, 8);
   }
 
-  public upDownDiff(startPosition: number, endPosition: number) {
+  public upDownDiff(startPosition: number, endPosition: number): string {
     const result = endPosition - startPosition;
     if (result > 0) {
       return `&#9660; ${Math.abs(result)}`;
