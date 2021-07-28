@@ -192,24 +192,34 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private createScatterChart(chartName: string, _values: { x: number; y: number }[], colors: string[], modality: string): Chart {
     const ctx = document.getElementById(chartName) as unknown as HTMLCanvasElement;
+    const _dataset = this.userData?.[modality] ?
+      [{
+        label: 'My mark',
+        data: [{ x: this.userData?.totalTime ?? 7200, y: this.userData?.[modality] ?? 7200 }],
+        backgroundColor: 'rgba(153,153,153,1)',
+        borderWidth: 2,
+        borderColor: 'rgba(153,153,153,1)',
+        hoverBackgroundColor: 'rgba(153,153,153,0.85)'
+      }, {
+        label: 'Total x Modality Time',
+        data: _values,
+        backgroundColor: colors[0],
+        borderWidth: 2,
+        borderColor: colors[0],
+        hoverBackgroundColor: colors[1]
+      }] :
+      [{
+        label: 'Total x Modality Time',
+        data: _values,
+        backgroundColor: colors[0],
+        borderWidth: 2,
+        borderColor: colors[0],
+        hoverBackgroundColor: colors[1]
+      }];
     return new Chart(ctx, {
       type: 'scatter',
       data: {
-        datasets: [{
-          label: 'My mark',
-          data: [{ x: this.userData?.totalTime ?? 7200, y: this.userData[modality] ?? 7200 }],
-          backgroundColor: 'rgba(153,153,153,1)',
-          borderWidth: 2,
-          borderColor: 'rgba(153,153,153,1)',
-          hoverBackgroundColor: 'rgba(153,153,153,0.85)'
-        }, {
-          label: 'Total x Modality Time',
-          data: _values,
-          backgroundColor: colors[0],
-          borderWidth: 2,
-          borderColor: colors[0],
-          hoverBackgroundColor: colors[1]
-        }]
+        datasets: _dataset
       },
       options: {
         scales: {
