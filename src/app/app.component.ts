@@ -57,6 +57,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     return this.top10[0] as Record;
   }
 
+  
+  public get userDataPosition() : number {
+    return this.currentDataset?.dataset?.indexOf(this.userData);
+  }
+  
+
   ngOnInit(): void {
     this.createForm();
     this._dataset = this.createDataset();

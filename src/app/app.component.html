@@ -85,7 +85,7 @@
           <div class="card text-dark" style="background-color: rgba(255, 157, 0, 0.61);">
             <div class="card-body">
               <h6 class="card-subtitle mb-2 text-white">Your Time and Position</h6>
-              <p class="card-text"> 00:01:30 | place </p>
+              <p class="card-text"> {{ userData?.totalTime }} | {{ userDataPosition }} place </p>
             </div>
           </div>
         </div>
@@ -98,16 +98,16 @@
               <h6 class="card-subtitle mb-2 text-white">Champion Metrics</h6>
               <div class="d-flex flex-row mb-3">
                 <div class="flex-fill">
-                  {{ secondToTime(championInfo?.swim) }} <br>
-                  {{ secondToTime(championInfo?.t1) }}
+                  Swim: {{ secondToTime(championInfo?.swim) }} <br>
+                  T1: {{ secondToTime(championInfo?.t1) }}
                 </div>
                 <div class="flex-fill">
-                  {{ secondToTime(championInfo?.bike) }} <br>
-                  {{ secondToTime(championInfo?.t2) }}
+                  Bike: {{ secondToTime(championInfo?.bike) }} <br>
+                  T2: {{ secondToTime(championInfo?.t2) }}
                 </div>
                 <div class="flex-fill">
-                  {{ secondToTime(championInfo?.run) }} <br>
-                  {{ secondToTime(championInfo?.totalTime) }}
+                  Run: {{ secondToTime(championInfo?.run) }} <br>
+                  Total Time: {{ secondToTime(championInfo?.totalTime) }}
                 </div>
               </div>
             </div>
