@@ -25,6 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   BikeScatterChart: Chart;
   RunScatterChart: Chart;
   KmeansChart: Chart;
+  userData: Record;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -72,7 +73,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.form = this.formBuilder.group({
       name: [null, Validators.required],
       age: [null],
-      sex: [null, Validators.required],
+      sex: [null],
       country: [null],
       swim: [null, Validators.required],
       t1: [null, Validators.required],
@@ -124,7 +125,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private createBarChart(chartName: string, _labels: string[], _values: number[], colors: string[]): Chart {
-    // colocar cor como parametro de entrada e mudar de acordo com o usuário inserido
     const ctx = document.getElementById(chartName) as unknown as HTMLCanvasElement;
     return new Chart(ctx, {
       type: 'bar',
@@ -322,13 +322,76 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   public changeSelection(value: string): void {
     this.currentDataset = this._dataset.filter(subset => subset.name == value)[0];
-    // Insert user data inside currentDataset here
+    this.currentDataset.dataset.push(this.userData);
+    this.currentDataset.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a.totalTime - b.totalTime));
     this.clearGraphs();
     this.configureGraphs();
   }
 
   public submit(): void {
-    // Insert user data inside currentDataset here
+    if (this.form.invalid) {
+      alert('Complete the data correctly!');
+    } else {
+      this.userData = new Record().deserialize({
+        "ATHLETE FIRST": this.form.value.name.split(' ')[0],
+        "ATHLETE LAST": this.form.value.name.split(' ').slice(1, this.form.value.name.split(' ').length).join(' '),
+        "NATIONALITY": this.form.value.country,
+        "START NUMBER": Math.floor(Math.random() * this.currentDataset.dataset.length) + 1,
+        "SWIM": this.splitTime(this.form.value.swim),
+        "T1": this.splitTime(this.form.value.t1),
+        "BIKE": this.splitTime(this.form.value.bike),
+        "T2": this.splitTime(this.form.value.t2),
+        "RUN": this.splitTime(this.form.value.run),
+        "TOTAL TIME": this.sumAll(
+          this.form.value.swim,
+          this.form.value.t1,
+          this.form.value.bike,
+          this.form.value.t2,
+          this.form.value.run,
+        ),
+        "PROGRAM": "Elite Men"
+      });
+      console.log(this.userData);
+      this.currentDataset.dataset.push(this.userData);
+      this.currentDataset.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a.totalTime - b.totalTime));
+      this.clearGraphs();
+      this.configureGraphs();
+    }
   }
 
+  private splitTime(str: string): string {
+    str = str.replace(':', '0');
+    return [
+      [str[0] ?? '0', str[1] ?? '0'].join(''),
+      [str[2] ?? '0', str[3] ?? '0'].join(''),
+      [str[4] ?? '0', str[5] ?? '0'].join('')
+    ].join(':');
+  }
+
+  private sumAll(
+    swim: string,
+    t1: string,
+    bike: string,
+    t2: string,
+    run: string
+  ): string {
+    return this.secondToTime(
+      this.toTimeSecond(this.splitTime(swim)) +
+      this.toTimeSecond(this.splitTime(t1)) +
+      this.toTimeSecond(this.splitTime(bike)) +
+      this.toTimeSecond(this.splitTime(t2)) +
+      this.toTimeSecond(this.splitTime(run))
+    )
+  }
+
+  private toTimeSecond(time: string): number {
+    const newTime = String(time).split(':')
+    if (newTime.length == 1 || JSON.stringify(newTime) === JSON.stringify(['00', '00', '00'])) {
+      return 7200;
+    }
+    const hour = +newTime[0] * 3600;
+    const minute = +newTime[1] * 60;
+    const second = +newTime[2];
+    return hour + minute + second;
+  }
 }
