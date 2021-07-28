@@ -163,15 +163,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   private makeScatterGraphs(): void {
     this.SwimScatterChart = this.createScatterChart(
       'totalSwimChart',
-      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'swim'])
+      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'swim'], true)
     );
     this.BikeScatterChart = this.createScatterChart(
       'totalBikeChart',
-      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'])
+      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'], true)
     );
     this.RunScatterChart = this.createScatterChart(
       'totalRunChart',
-      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'run'])
+      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'run'], true)
     );
   }
 
@@ -201,26 +201,88 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private generateXYObj(dataset: Record[], fieldName: string[]): { x: number; y: number }[] {
-    return dataset.
-      filter(record => record[fieldName[0]] < 7200).
-      map(record => {
+  private generateXYObj(dataset: Record[], fieldName: string[], removeOutlier?: boolean): { x: number; y: number }[] {
+    if (removeOutlier === true) {
+      return dataset
+        .filter(record => record[fieldName[0]] < 7200)
+        .map(record => {
+          return { x: record[fieldName[0]], y: record[fieldName[1]] };
+        });
+    }
+    return dataset
+      .map(record => {
         return { x: record[fieldName[0]], y: record[fieldName[1]] };
       });
   }
 
   private makeKmeansGraph(): void {
-    const dataset = this.currentDataset?.dataset
-      .map(record => { return { x: record?.totalTime, y: record?.bike }; })
+    const dataset = this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'], false)
       .map(record => Object.values(record));
 
     const kmeans = new clustering.KMEANS();
     const clusters = kmeans.run(dataset, 5);
 
-    this.KmeansChart = this.createScatterChart(
+    this.KmeansChart = this.createKmeansChart(
       'kmeansChart',
-      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'])
+      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'], false),
+      ['rgba(241,32,18,1)', 'rgba(202,0,0,1)', 'rgba(255,106,0,1)', 'rgba(255,159,0,1)', 'rgba(153,153,153,1)'],
+      ['rgba(241,32,18,0.9)', 'rgba(202,0,0,0.9)', 'rgba(255,106,0,0.9)', 'rgba(255,159,0,0.9)', 'rgba(153,153,153,0.9)']
     );
+  }
+
+  private createKmeansChart(chartName: string, _values: { x: number; y: number }[][], colors1: string[], colors2: string[]): Chart {
+    const ctx = document.getElementById(chartName) as unknown as HTMLCanvasElement;
+    return new Chart(ctx, {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          label: 'Group 1',
+          data: _values[0],
+          backgroundColor: colors1[0],
+          borderWidth: 2,
+          borderColor: colors1[0],
+          hoverBackgroundColor: colors2[0]
+        }, {
+          label: 'Group 2',
+          data: _values[1],
+          backgroundColor: colors1[1],
+          borderWidth: 2,
+          borderColor: colors1[1],
+          hoverBackgroundColor: colors2[1]
+        }, {
+          label: 'Group 3',
+          data: _values[2],
+          backgroundColor: colors1[2],
+          borderWidth: 2,
+          borderColor: colors1[2],
+          hoverBackgroundColor: colors2[2]
+        }, {
+          label: 'Group 4',
+          data: _values[3],
+          backgroundColor: colors1[3],
+          borderWidth: 2,
+          borderColor: colors1[3],
+          hoverBackgroundColor: colors2[3]
+        }, {
+          label: 'Group 5',
+          data: _values[4],
+          backgroundColor: colors1[4],
+          borderWidth: 2,
+          borderColor: colors1[4],
+          hoverBackgroundColor: colors2[4]
+        },
+        ]
+      },
+      options: {
+        scales: {
+          x: {
+            offset: true,
+            type: 'linear',
+            position: 'bottom'
+          }
+        }
+      }
+    });
   }
 
   clearGraphs() {
