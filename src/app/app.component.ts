@@ -220,11 +220,15 @@ export class AppComponent implements OnInit, AfterViewInit {
       .map(record => Object.values(record));
 
     const kmeans = new clustering.KMEANS();
-    const clusters = kmeans.run(dataset, 5);
+    const clusters = kmeans.run(dataset, 5).map(indexList => {
+      return indexList.map(index => {
+        return { x: dataset[index][0], y: dataset[index][1] };
+      });
+    });
 
     this.KmeansChart = this.createKmeansChart(
       'kmeansChart',
-      this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'], false),
+      clusters,
       ['rgba(241,32,18,1)', 'rgba(202,0,0,1)', 'rgba(255,106,0,1)', 'rgba(255,159,0,1)', 'rgba(153,153,153,1)'],
       ['rgba(241,32,18,0.9)', 'rgba(202,0,0,0.9)', 'rgba(255,106,0,0.9)', 'rgba(255,159,0,0.9)', 'rgba(153,153,153,0.9)']
     );
