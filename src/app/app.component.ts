@@ -107,19 +107,19 @@ export class AppComponent implements OnInit, AfterViewInit {
       'histoSwimChart',
       ['Until 12min', 'Between 12 and 13min', 'Between 13 and 14min', 'Between 14 and 15min', 'After 15min'],
       this.countBetween(swimData, [720, 780, 840, 900]),
-      ['rgba(241,32,18,1)', 'rgba(241,32,18,0.9)']
+      ['rgba(241,32,18,1)', 'rgba(241,32,18,0.85)']
     );
     this.BikeTimeChart = this.createBarChart(
       'histoBikeChart',
       ['Until 29min', 'Between 29 and 31min', 'Between 31 and 35min', 'Between 35 and 38min', 'After 38min'],
       this.countBetween(bikeData, [1740, 1860, 2100, 2280]),
-      ['rgba(255,106,0,1)', 'rgba(255,106,0,0.9)']
+      ['rgba(255,106,0,1)', 'rgba(255,106,0,0.85)']
     );
     this.RunTimeChart = this.createBarChart(
       'histoRunChart',
       ['Until 15min30', 'Between 15min30 and 18min', 'Between 18 and 21min', 'Between 21 and 30min', 'After 30min'],
       this.countBetween(runData, [930, 1080, 1260, 1800]),
-      ['rgba(255,159,0,1)', 'rgba(255,159,0,0.9)']
+      ['rgba(255,159,0,1)', 'rgba(255,159,0,0.85)']
     );
   }
 
@@ -167,17 +167,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.SwimScatterChart = this.createScatterChart(
       'totalSwimChart',
       this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'swim'], true),
-      ['rgba(241,32,18,1)', 'rgba(241,32,18,0.9)']
+      ['rgba(241,32,18,1)', 'rgba(241,32,18,0.85)']
     );
     this.BikeScatterChart = this.createScatterChart(
       'totalBikeChart',
       this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'bike'], true),
-      ['rgba(255,106,0,1)', 'rgba(255,106,0,0.9)']
+      ['rgba(255,106,0,1)', 'rgba(255,106,0,0.85)']
     );
     this.RunScatterChart = this.createScatterChart(
       'totalRunChart',
       this.generateXYObj(this.currentDataset.dataset, ['totalTime', 'run'], true),
-      ['rgba(255,159,0,1)', 'rgba(255,159,0,0.9)']
+      ['rgba(255,159,0,1)', 'rgba(255,159,0,0.85)']
     );
   }
 
@@ -236,7 +236,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       'kmeansChart',
       clusters,
       ['rgba(241,32,18,1)', 'rgba(202,0,0,1)', 'rgba(255,106,0,1)', 'rgba(255,159,0,1)', 'rgba(153,153,153,1)'],
-      ['rgba(241,32,18,0.9)', 'rgba(202,0,0,0.9)', 'rgba(255,106,0,0.9)', 'rgba(255,159,0,0.9)', 'rgba(153,153,153,0.9)']
+      ['rgba(241,32,18,0.85)', 'rgba(202,0,0,0.85)', 'rgba(255,106,0,0.85)', 'rgba(255,159,0,0.85)', 'rgba(153,153,153,0.85)']
     );
   }
 
