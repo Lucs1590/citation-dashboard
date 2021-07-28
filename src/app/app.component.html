@@ -64,7 +64,7 @@
           <div class="card text-dark" style="background-color: rgba(241, 33, 18, 0.582);">
             <div class="card-body">
               <h6 class="card-subtitle mb-2 text-white">Minimum Time</h6>
-              <p class="card-text">{{ timeIndicator[0] }}</p>
+              <p class="card-text">{{ _timeIndicator[0] }}</p>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@
           <div class="card text-dark" style="background-color: rgba(202, 0, 0, 0.699);">
             <div class="card-body">
               <h6 class="card-subtitle mb-2 text-white">Maximum Time</h6>
-              <p class="card-text">{{ timeIndicator[2] }}</p>
+              <p class="card-text">{{ _timeIndicator[2] }}</p>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@
           <div class="card text-dark" style="background-color: rgba(255, 106, 0, 0.651);">
             <div class="card-body">
               <h6 class="card-subtitle mb-2 text-white">Average Time</h6>
-              <p class="card-text">{{ timeIndicator[1] }}</p>
+              <p class="card-text">{{ _timeIndicator[1] }}</p>
             </div>
           </div>
         </div>
@@ -112,16 +112,16 @@
               <h6 class="card-subtitle mb-2 text-white">Champion Metrics</h6>
               <div class="d-flex flex-row mb-3">
                 <div class="flex-fill">
-                  Swim: {{ secondToTime(championInfo?.swim) }} <br>
-                  T1: {{ secondToTime(championInfo?.t1) }}
+                  Swim: {{ secondToTime(_championInfo?.swim) }} <br>
+                  T1: {{ secondToTime(_championInfo?.t1) }}
                 </div>
                 <div class="flex-fill">
-                  Bike: {{ secondToTime(championInfo?.bike) }} <br>
-                  T2: {{ secondToTime(championInfo?.t2) }}
+                  Bike: {{ secondToTime(_championInfo?.bike) }} <br>
+                  T2: {{ secondToTime(_championInfo?.t2) }}
                 </div>
                 <div class="flex-fill">
-                  Run: {{ secondToTime(championInfo?.run) }} <br>
-                  Total Time: {{ secondToTime(championInfo?.totalTime) }}
+                  Run: {{ secondToTime(_championInfo?.run) }} <br>
+                  Total Time: {{ secondToTime(_championInfo?.totalTime) }}
                 </div>
               </div>
             </div>
@@ -173,7 +173,7 @@
     <div class="col-6">
       <!-- Table -->
       <div class="card">
-        <table class="table table-striped">
+        <table class="table table-striped mb-3 mt-3">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -183,7 +183,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let record of top10; let i=index">
+            <tr *ngFor="let record of _top10; let i=index">
               <th scope="row">{{i + 1}}</th>
               <td>{{ record.name }}</td>
               <td [innerHTML]="upDownDiff(record.startPosition, i+i)"></td>
