@@ -26,6 +26,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   RunScatterChart: Chart;
   KmeansChart: Chart;
   userData: Record;
+  _top10: Proof;
+  _timeIndicator: string[];
+  _championInfo: Record;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -57,17 +60,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     return this.top10[0] as Record;
   }
 
-
-  public get userDataPosition(): number {
-    return this.currentDataset?.dataset?.indexOf(this.userData);
-  }
-
-
   ngOnInit(): void {
+    this._countries = contries;
     this.createForm();
     this._dataset = this.createDataset();
     this.currentDataset = this._dataset[0];
-    this._countries = contries;
+    this._top10 = this.top10;
+    this._timeIndicator = this.timeIndicator;
+    this._championInfo = this.championInfo;
   }
 
   ngAfterViewInit(): void {
@@ -102,8 +102,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private configureGraphs(): void {
     this.makeBarGraphs();
-    this.makeScatterGraphs();
     this.makeKmeansGraph();
+    if (this.userData) { this.userData.endPosition = this.currentDataset?.dataset?.indexOf(this.userData) + 1 };
+    this.currentDataset.dataset.splice(this.currentDataset.dataset.indexOf(this.userData), 1);
+    this.makeScatterGraphs();
   }
 
   private makeBarGraphs(): void {
@@ -192,24 +194,34 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private createScatterChart(chartName: string, _values: { x: number; y: number }[], colors: string[], modality: string): Chart {
     const ctx = document.getElementById(chartName) as unknown as HTMLCanvasElement;
+    const _dataset = this.userData?.[modality] ?
+      [{
+        label: 'My mark',
+        data: [{ x: this.userData?.totalTime ?? 7200, y: this.userData?.[modality] ?? 7200 }],
+        backgroundColor: 'rgba(153,153,153,1)',
+        borderWidth: 2,
+        borderColor: 'rgba(153,153,153,1)',
+        hoverBackgroundColor: 'rgba(153,153,153,0.85)'
+      }, {
+        label: 'Total x Modality Time',
+        data: _values,
+        backgroundColor: colors[0],
+        borderWidth: 2,
+        borderColor: colors[0],
+        hoverBackgroundColor: colors[1]
+      }] :
+      [{
+        label: 'Total x Modality Time',
+        data: _values,
+        backgroundColor: colors[0],
+        borderWidth: 2,
+        borderColor: colors[0],
+        hoverBackgroundColor: colors[1]
+      }];
     return new Chart(ctx, {
       type: 'scatter',
       data: {
-        datasets: [{
-          label: 'My mark',
-          data: [{ x: this.userData?.totalTime ?? 7200, y: this.userData[modality] ?? 7200 }],
-          backgroundColor: 'rgba(153,153,153,1)',
-          borderWidth: 2,
-          borderColor: 'rgba(153,153,153,1)',
-          hoverBackgroundColor: 'rgba(153,153,153,0.85)'
-        }, {
-          label: 'Total x Modality Time',
-          data: _values,
-          backgroundColor: colors[0],
-          borderWidth: 2,
-          borderColor: colors[0],
-          hoverBackgroundColor: colors[1]
-        }]
+        datasets: _dataset
       },
       options: {
         scales: {
@@ -338,10 +350,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   public changeSelection(value: string): void {
     this.currentDataset = this._dataset.filter(subset => subset.name == value)[0];
-    this.currentDataset.dataset.push(this.userData);
-    this.currentDataset.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a?.totalTime - b?.totalTime));
-    this.clearGraphs();
-    this.configureGraphs();
+    if (this.userData) { this.currentDataset.dataset.push(this.userData) };
+    this.updateDataset();
   }
 
   public submit(): void {
@@ -367,11 +377,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         ),
         "PROGRAM": "Elite Men"
       });
-      console.log(this.userData);
       this.currentDataset.dataset.push(this.userData);
-      this.currentDataset.dataset.map(record => new Record().deserialize(record)).sort((a, b) => (a?.totalTime - b?.totalTime));
-      this.clearGraphs();
-      this.configureGraphs();
+      this.updateDataset();
     }
   }
 
@@ -409,5 +416,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     const minute = +newTime[1] * 60;
     const second = +newTime[2];
     return hour + minute + second;
+  }
+
+  private updateDataset(): void {
+    this.currentDataset?.dataset?.sort((a, b) => (a?.totalTime - b?.totalTime));
+    this._top10 = this.top10;
+    this._timeIndicator = this.timeIndicator;
+    this._championInfo = this.championInfo;
+    this.clearGraphs();
+    this.configureGraphs();
   }
 }
